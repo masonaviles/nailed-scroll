@@ -1,0 +1,22 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Node modules (if you ever use npm for frontend tools like Tailwind CLI, etc)
+node_modules/
+
+# Build output folders (if you use any static site generator or bundler)
+dist/
+build/
+
+# Cache and temp files
+*.log
+*.tmp
+*.cache
+
+# VSCode settings (optional)
+.vscode/
+
+# Environment files (if you ever have secret config)
+.env
+.env.local

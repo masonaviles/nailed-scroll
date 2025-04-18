@@ -8,9 +8,11 @@ const body = document.body; // Reference to the body element
 const frame = document.querySelector(".frame"); // Reference to the frame element
 const content = document.querySelector(".content"); // Reference to the content element
 const enterButton = document.querySelector(".enter"); // Reference to the "Explore" button
+const bookNowButton = document.getElementById("book-now-button"); // "Book Now!" button
 const fullview = document.querySelector(".fullview"); // Reference to the fullview element
 const grid = document.querySelector(".grid"); // Reference to the grid element
 const gridRows = grid.querySelectorAll(".row"); // Reference to all row elements within the grid
+const contentNav = document.querySelector(".content__nav");
 
 // Cache window size and update on resize
 let winsize = { width: window.innerWidth, height: window.innerHeight };
@@ -197,27 +199,33 @@ const stopRendering = () => {
   }
 };
 
-const enterFullview = () => {
-  // Logic to animate the middle image to full view using gsap Flip
+const enterFullview = (onCompleteCallback) => {
   const flipstate = Flip.getState(middleRowItemInner);
   fullview.appendChild(middleRowItemInner);
 
-  // Get the CSS variable value for the translation
   const transContent = getCSSVariableValue(content, "--trans-content");
 
-  // Create a GSAP timeline for the Flip animation
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    onComplete: () => {
+      stopRendering();
+      if (typeof onCompleteCallback === "function") {
+        onCompleteCallback(); // <<== Call it when done
+      }
+    },
+  });
 
-  // Add the Flip animation to the timeline
+  if (contentNav) {
+    contentNav.style.opacity = 1;
+    contentNav.style.pointerEvents = "auto";
+  }
+
   tl.add(
     Flip.from(flipstate, {
       duration: 0.9,
       ease: "power4",
       absolute: true,
-      onComplete: stopRendering,
     })
   )
-    // Fade out grid
     .to(
       grid,
       {
@@ -227,7 +235,6 @@ const enterFullview = () => {
       },
       0
     )
-    // Scale up the inner image
     .to(
       middleRowItemInnerImage,
       {
@@ -237,15 +244,12 @@ const enterFullview = () => {
       },
       "<-=0.45"
     )
-    // Move the content up
     .to(content, {
-      y: transContent, // Use the CSS variable value
+      y: transContent,
       duration: 0.9,
       ease: "power4",
     })
-    // Show the frame
     .add(() => frame.classList.remove("hidden"), "<")
-    // Scale and move
     .to(
       middleRowItemInnerImage,
       {
@@ -259,9 +263,8 @@ const enterFullview = () => {
       "<"
     );
 
-  // Hide the button
-  enterButton.classList.add("hidden");
-  // Scrolling allowed
+  if (enterButton) enterButton.classList.add("hidden");
+  if (bookNowButton) bookNowButton.classList.add("hidden");
   body.classList.remove("noscroll");
 };
 
@@ -287,4 +290,33 @@ window.addEventListener("mousemove", updateMousePosition);
 window.addEventListener("touchmove", (ev) => {
   const touch = ev.touches[0];
   updateMousePosition(touch);
+});
+
+// Book Now Hero
+document
+  .getElementById("book-now-button")
+  .addEventListener("click", function () {
+    const button = this;
+    enterFullview(() => {
+      button.classList.add("hidden");
+      const bookingSection = document.getElementById("Booking");
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+// Smooth Scroll Anchor
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  });
 });

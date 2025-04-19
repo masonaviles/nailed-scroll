@@ -177,8 +177,8 @@ a:focus-visible {
 @media screen and (min-width: 768px) {
   .frame__title {
     font-size: 6.25rem;
-    left: 50%;
-    transform: translateX(50%);
+    left: 20%;
+    transform: translateX(20%);
   }
 }
 
@@ -435,7 +435,7 @@ a:focus-visible {
     align-content: space-between;
   }
   .content__header h2 {
-    font-size: clamp(2rem, 20vh, 16rem);
+    font-size: clamp(2rem, 10vh, 16rem);
   }
   .content__text p.highlight {
     font-size: clamp(2rem, 7vh, 4rem);

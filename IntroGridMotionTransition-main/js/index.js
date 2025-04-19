@@ -306,17 +306,115 @@ document
     });
   });
 
-// Smooth Scroll Anchor
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
+function startTrueInfiniteScroll(containerSelector, speed = 0.5) {
+  const viewport = document.querySelector(containerSelector);
+  const container = viewport.querySelector(".embla__container");
+  if (!viewport || !container) return;
 
-    const target = document.querySelector(this.getAttribute("href"));
+  // Duplicate slides for infinite illusion
+  container.innerHTML += container.innerHTML;
 
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-      });
+  let isPaused = false;
+  let isDragging = false;
+  let isHolding = false;
+  let animationFrameId = null;
+  let startX = 0;
+  let scrollLeft = 0;
+  let holdTimeout;
+  let hoverTimeout;
+
+  function scroll() {
+    if (!isPaused && !isDragging) {
+      viewport.scrollLeft += speed;
+      if (viewport.scrollLeft >= container.scrollWidth / 2) {
+        viewport.scrollLeft = 0;
+      }
+    }
+    animationFrameId = requestAnimationFrame(scroll);
+  }
+
+  function pauseScroll() {
+    isPaused = true;
+  }
+
+  function resumeScroll() {
+    isPaused = false;
+  }
+
+  // --- Hover Pause with Delay ---
+  viewport.addEventListener("mouseenter", () => {
+    hoverTimeout = setTimeout(() => {
+      pauseScroll();
+    }, 250); // 250ms delay before pausing on hover
+  });
+
+  viewport.addEventListener("mouseleave", () => {
+    clearTimeout(hoverTimeout);
+    resumeScroll();
+  });
+
+  // --- Click and Hold to Start Dragging ---
+  viewport.addEventListener("mousedown", (e) => {
+    holdTimeout = setTimeout(() => {
+      isDragging = true;
+      startX = e.pageX - viewport.offsetLeft;
+      scrollLeft = viewport.scrollLeft;
+      pauseScroll();
+    }, 200); // Hold 200ms to start dragging
+  });
+
+  viewport.addEventListener("mouseup", () => {
+    clearTimeout(holdTimeout);
+    if (isDragging) {
+      isDragging = false;
+      resumeScroll();
     }
   });
-});
+
+  viewport.addEventListener("mouseleave", () => {
+    clearTimeout(holdTimeout);
+    isDragging = false;
+    resumeScroll();
+  });
+
+  viewport.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - viewport.offsetLeft;
+    const walk = (x - startX) * 2; // Speed multiplier when dragging
+    viewport.scrollLeft = scrollLeft - walk;
+  });
+
+  // --- Touch for mobile devices ---
+  viewport.addEventListener("touchstart", (e) => {
+    holdTimeout = setTimeout(() => {
+      isDragging = true;
+      startX = e.touches[0].pageX - viewport.offsetLeft;
+      scrollLeft = viewport.scrollLeft;
+      pauseScroll();
+    }, 200); // Same hold delay for touch
+  });
+
+  viewport.addEventListener("touchend", () => {
+    clearTimeout(holdTimeout);
+    if (isDragging) {
+      isDragging = false;
+      resumeScroll();
+    }
+  });
+
+  viewport.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - viewport.offsetLeft;
+    const walk = (x - startX) * 2;
+    viewport.scrollLeft = scrollLeft - walk;
+  });
+
+  // Start auto-scroll
+  scroll();
+
+  return () => cancelAnimationFrame(animationFrameId);
+}
+
+// Start infinite scroll
+startTrueInfiniteScroll(".embla__viewport", 0.5);

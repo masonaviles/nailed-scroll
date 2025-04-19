@@ -167,9 +167,9 @@ a:focus-visible {
     Helvetica, Arial, sans-serif;
 
   position: absolute;
-  top: 1vh;
   top: 24vh;
-  left: 16%;
+  left: 50%;
+  transform: translateX(50%);
 
   color: #222222;
   text-shadow: 0 0 5px #ffffff, 0 0 5px #ff69b4, 0 0 10px #ff69b4,

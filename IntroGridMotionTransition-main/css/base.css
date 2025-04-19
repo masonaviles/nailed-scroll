@@ -168,8 +168,6 @@ a:focus-visible {
 
   position: absolute;
   top: 24vh;
-  left: 50%;
-  transform: translateX(50%);
 
   color: #222222;
   text-shadow: 0 0 5px #ffffff, 0 0 5px #ff69b4, 0 0 10px #ff69b4,
@@ -179,6 +177,8 @@ a:focus-visible {
 @media screen and (min-width: 768px) {
   .frame__title {
     font-size: 6.25rem;
+    left: 50%;
+    transform: translateX(50%);
   }
 }
 
@@ -496,4 +496,45 @@ a:focus-visible {
   img {
     border-radius: 2em 2em 0 0;
   }
+}
+
+#About,
+#Policy,
+#Info,
+#Booking {
+  scroll-margin-top: 50px;
+  position: relative;
+}
+
+#About .invis-btn {
+  /* border: 1px solid red; */
+  height: 7rem;
+  width: 26rem;
+  position: absolute;
+  bottom: 26.5%;
+  left: 42%;
+}
+
+#Info .invis-btn {
+  /* border: 1px solid red; */
+  height: 3rem;
+  width: 26rem;
+}
+
+#Info .insta {
+  position: absolute;
+  bottom: 23.5%;
+  left: 24%;
+}
+
+#Info .tiktok {
+  position: absolute;
+  bottom: 20.5%;
+  left: 24%;
+}
+
+#Info .email {
+  position: absolute;
+  bottom: 17.5%;
+  left: 24%;
 }

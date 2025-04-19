@@ -504,6 +504,7 @@ a:focus-visible {
 #Booking {
   scroll-margin-top: 50px;
   position: relative;
+  overflow: hidden;
 }
 
 #About .invis-btn {
@@ -513,6 +514,14 @@ a:focus-visible {
   position: absolute;
   bottom: 26.5%;
   left: 42%;
+}
+@media screen and (max-width: 767px) {
+  #About .invis-btn {
+    left: 0;
+    height: 4rem;
+    width: 100%;
+    bottom: 24%;
+  }
 }
 
 #Info .invis-btn {
@@ -537,4 +546,26 @@ a:focus-visible {
   position: absolute;
   bottom: 17.5%;
   left: 24%;
+}
+
+@media screen and (max-width: 767px) {
+  #Info .invis-btn {
+    height: 1.5rem;
+    width: 50%;
+  }
+  #Info .insta {
+    position: absolute;
+    bottom: 23.5%;
+    left: 0;
+  }
+  #Info .tiktok {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+  }
+  #Info .email {
+    position: absolute;
+    bottom: 17%;
+    left: 0;
+  }
 }

@@ -184,7 +184,7 @@ a:focus-visible {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, #ff69b475 0%, transparent 100%);
+  background: radial-gradient(circle, #ff55aa75 80%, transparent 100%);
   background-size: 250px, 100%;
   pointer-events: none;
 }
@@ -306,6 +306,7 @@ a:focus-visible {
 .content {
   padding: var(--page-padding);
   position: relative;
+  top: 13vh;
 }
 
 .content::before {
@@ -318,7 +319,7 @@ a:focus-visible {
   left: 0;
   z-index: 0;
   background: url(../img/noise.png),
-    radial-gradient(at top, #ff69b4 0%, #ddd 100%);
+    radial-gradient(at top, #ff69b4 2%, #000 100%);
   background-size: 250px, 100%;
 }
 
@@ -339,14 +340,18 @@ a:focus-visible {
   font-weight: 400;
   margin: 6rem 0 10vh;
   line-height: 0.9;
+
+  color: #ffb6db; /* Solid hot pink text */
+  text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 20px #ff69b4,
+    0 0 40px #ff1493, 0 0 60px #ff1493, 0 0 80px #ff1493;
 }
 
 .content__text {
   text-wrap: balance;
   display: flex;
   flex-direction: column;
-  gap: 10vh;
-  padding: 0 5vw;
+  gap: 0;
+  padding: 10vh 5vw;
 }
 
 .content__text p {
@@ -369,6 +374,11 @@ a:focus-visible {
   justify-content: space-between;
   margin-top: 20vh;
   transform: translateY(calc(-1 * var(--trans-content)));
+  color: white;
+}
+
+.content__footer a {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 @media screen and (min-width: 53em) {
@@ -426,5 +436,20 @@ a:focus-visible {
   .mobile-center {
     display: block;
     margin: 0 auto;
+  }
+}
+
+.center {
+  width: 100%;
+}
+
+.center img {
+  display: block;
+  margin: 0 auto;
+}
+
+#About {
+  img {
+    border-radius: 2em 2em 0 0;
   }
 }

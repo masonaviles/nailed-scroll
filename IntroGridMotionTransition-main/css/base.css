@@ -309,6 +309,12 @@ a:focus-visible {
   top: 13vh;
 }
 
+@media screen and (max-width: 767px) {
+  .content {
+    padding: 0;
+  }
+}
+
 .content::before {
   content: "";
   position: absolute;

@@ -19,7 +19,7 @@ body {
   margin: 0;
   color: var(--color-text);
   background-color: var(--color-bg);
-  font-family: new-science-mono, sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -163,8 +163,7 @@ a:focus-visible {
   font-size: 2.25rem;
   margin: 0;
   font-weight: 400;
-  font-family: "new-science", -apple-system, BlinkMacSystemFont, Segoe UI,
-    Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
 
   position: absolute;
   top: 24vh;
@@ -268,8 +267,7 @@ a:focus-visible {
   padding: 1.75rem 4rem;
   font-weight: 700;
   z-index: 100;
-  font-family: "new-science", -apple-system, BlinkMacSystemFont, Segoe UI,
-    Helvetica, Arial, sans-sesrif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 1.15rem;
   background: radial-gradient(circle, #ff56ab75 50%, transparent 100%);
@@ -363,7 +361,7 @@ a:focus-visible {
 
 .content__header h2 {
   font-size: 2rem;
-  font-family: new-science-extended, sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   margin: 6rem 0 10vh;
   line-height: 0.9;
@@ -410,7 +408,7 @@ a:focus-visible {
 .content__text p.highlight {
   max-width: 1000px;
   font-size: 2rem;
-  font-family: new-science-extended, sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
 }
 
@@ -454,6 +452,10 @@ a:focus-visible {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
+}
+
+nav a {
+  font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {
